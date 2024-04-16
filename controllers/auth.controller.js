@@ -1,11 +1,13 @@
+const httpStatus = require("http-status");
+const User = require("../models/user.model");
+const { userService, authService, tokenService } = require("../services");
+const { catchAsync } = require("../utils");
 
 
 const registerUserWithEmailAndPassword = catchAsync(async (req, res) => {
+  console.log(req.body)
     const user = await userService.createUser(req.body);//the phone number should be with country code
     // Send verification Email
-    const verifyEmailToken = await tokenService.generateVerifyEmailToken(user);
-    await emailService.sendVerificationEmail(user.email, verifyEmailToken);
-  
     res.status(httpStatus.CREATED).send({
       user,
       message:
@@ -14,6 +16,15 @@ const registerUserWithEmailAndPassword = catchAsync(async (req, res) => {
   });
 
 
+const loginUserWithEmailAndPassword = catchAsync(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await authService.loginUserWithEmailAndPassword(email, password);
+ 
+  const tokens = await tokenService.generateAuthTokens(user);
+  res.send({ user, tokens });
+});
+
 module.exports={
-    registerUserWithEmailAndPassword
+    registerUserWithEmailAndPassword,
+    loginUserWithEmailAndPassword
 }

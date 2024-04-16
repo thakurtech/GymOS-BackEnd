@@ -13,5 +13,11 @@ router.post(
     authController.registerUserWithEmailAndPassword
 )
 
+router.post(
+    "/login-user-with-email-password",
+    // validate(authValidation.loginWithEmailAndPassword),
+    authController.loginUserWithEmailAndPassword
+  );
+
 
 module.exports=router;
