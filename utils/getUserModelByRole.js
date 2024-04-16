@@ -6,11 +6,8 @@ function getUserModelByRole(role) {
     if (!role) throw new Error("role is undefined");
     let model;
     switch (role) {
-      case "buyer":
+      case "member":
         model = "User";
-        break;
-      case "vendor":
-        model = "Vendor";
         break;
       case "agent":
         model = "Agent";

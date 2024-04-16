@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+
     password: {
       type: String,
       trim: true,
@@ -50,6 +51,10 @@ const userSchema = new mongoose.Schema(
         // Mobile number is required if email is not provided
         return !this.email;
       },
+    },
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
     },
     address: [
       {

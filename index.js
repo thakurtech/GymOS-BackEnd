@@ -1,19 +1,20 @@
 const mongoose = require("mongoose");
 const app = require("./app");
-// const config = require("./config/config");
+const config = require("./config/config.js");
 
 let server;
-// mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
-//   logger.info("Connected to MongoDB");
-//   server = app.listen(config.port, () => {
-//     logger.info(`Listening to port ${config.port}`);
-//   });
-// });
-
-
- app.listen(8000, () => {
-    console.log(`Listening to port 8000`);
+// console.log(config)
+mongoose.connect(config.mongodb.url, config.mongodb.options).then(() => {
+  console.log("Connected to MongoDB");
+  server = app.listen(config.port, () => {
+    console.log(`Listening to port ${config.port}`);
   });
+});
+
+
+//  app.listen(8000, () => {
+//     console.log(`Listening to port 8000`);
+//   });
 const exitHandler = () => {
   if (server) {
     server.close(() => {
