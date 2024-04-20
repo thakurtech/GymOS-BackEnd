@@ -25,7 +25,10 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
-
+    gym:{
+      type:mongoose.SchemaTypes.ObjectId,
+      ref:"Admin"
+    },
     password: {
       type: String,
       trim: true,

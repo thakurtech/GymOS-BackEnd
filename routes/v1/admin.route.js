@@ -10,7 +10,7 @@ const { adminController } = require("../../controllers");
 const router = express.Router();
 
 router.post("/register-user"
-// ,auth("manageUsers")
+,auth("manageUsers")
 ,adminController.createUser)
 
 
