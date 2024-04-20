@@ -1,6 +1,7 @@
 const httpStatus = require("http-status");
 const User = require("../models/user.model");
 const { ApiError } = require("../utils");
+const Admin = require("../models/admin.model");
 
 const createUser = async (userBody) => {
     if (await User.isEmailTaken(userBody.email)) {
@@ -20,9 +21,19 @@ const createUser = async (userBody) => {
   return user;
 };
 
+const getAdminByEmail = async (email) => {
+  const user= await Admin.findOne({ email });
+  if(!user){
+    return  null;
+  }
+return user;
+};
+
+
 
   module.exports={
     createUser,
-    getUserByEmail
+    getAdminByEmail,
+    getUserByEmail,
   }
   

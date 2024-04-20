@@ -1,5 +1,5 @@
 const httpStatus = require("http-status");
-const { userService } = require(".");
+const { userService, adminService } = require(".");
 const { ApiError } = require("../utils");
 
 const loginUserWithEmailAndPassword = async (email, password) => {
@@ -17,6 +17,24 @@ const loginUserWithEmailAndPassword = async (email, password) => {
   };
 
 
+  const loginAdimWithEmailAndPassword = async (email, password) => {
+    const user = await userService.getAdminByEmail(email);
+    if (!user) {
+      throw new ApiError(httpStatus.UNAUTHORIZED, "Email not registered");
+    }
+    if (!(await user.isPasswordMatch(password))) {
+      throw new ApiError(httpStatus.UNAUTHORIZED, "Incorrect password");
+    }
+    return user;
+  };
+
+
+
+  
+
+
   module.exports={
-    loginUserWithEmailAndPassword
+    loginUserWithEmailAndPassword,
+    loginAdimWithEmailAndPassword,
+    // getAdminByEmail
   }
