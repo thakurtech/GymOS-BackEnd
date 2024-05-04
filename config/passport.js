@@ -28,13 +28,16 @@ const jwtVerify = async (payload, done) => {
       done(null, agent);
 
     } else {
+      // console.log(payload.sub)
       const admin = await Admin.findById(payload.sub);
+      // console.log(admin,"admin")
       if (!admin) {
         return done(null, false);
       }
       done(null, admin);
     }
   } catch (error) {
+    // console.log(error,"error")
     done(error, false);
   }
 };
