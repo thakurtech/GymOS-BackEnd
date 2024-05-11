@@ -16,7 +16,7 @@ router.post(
 
 router.post(
     "/login-user-with-email-password",
-    auth("getProfiles"),
+
     // validate(authValidation.loginWithEmailAndPassword),
     authController.loginUserWithEmailAndPassword
   );

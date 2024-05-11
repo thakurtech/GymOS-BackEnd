@@ -21,9 +21,9 @@ const verifyCallback =
       rights.includes(requiredRight)
     );
 
-    if (!hasRequiredRights) {
-      return reject(new ApiError(httpStatus.FORBIDDEN, "Forbidden"));
-    }
+    // if (!hasRequiredRights) {
+    //   return reject(new ApiError(httpStatus.FORBIDDEN, "Forbidden"));
+    // }
     resolve();
   };
 
