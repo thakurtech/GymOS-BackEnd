@@ -16,7 +16,7 @@ router.post(
 
 router.post(
     "/login-user-with-email-password",
-    auth("getProducts"),
+
     // validate(authValidation.loginWithEmailAndPassword),
     authController.loginUserWithEmailAndPassword
   );
@@ -32,6 +32,18 @@ router.post(
     // validate(authValidation.loginWithEmailAndPassword),
     authController.loginAdminWithEmailAndPassword
   );
+
+  router.get(
+    "is-admin-authenticated",
+    auth("manageUsers"),
+    authController.loginAdminWithEmailAndPassword
+  )
+
+  router.get(
+    "is-user-authenticated",
+    auth("getProducts"),
+    authController.loginUserWithEmailAndPassword
+  )
 
 
 

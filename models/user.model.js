@@ -2,12 +2,15 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const { userRoles } = require("../config/roles.js");
+// load the env file and get the gym id from it
+require("dotenv").config();
+const gymId = process.env.GYM_ID;
 
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
     email: {
@@ -25,9 +28,10 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
-    gym:{
-      type:mongoose.SchemaTypes.ObjectId,
-      ref:"Admin"
+    gym: {
+      type: mongoose.SchemaTypes.ObjectId,
+      default: gymId,
+      ref: "Admin",
     },
     password: {
       type: String,
@@ -59,12 +63,13 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    address: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Address",
-      },
-    ],
+    isUserVerified: {
+      type: Boolean,
+      default: false,
+    },
+    address: {
+      type: String,
+    },
     role: {
       type: String,
       enum: userRoles,
@@ -101,7 +106,10 @@ const userSchema = new mongoose.Schema(
        * @returns {Promise<boolean>}
        */
       isMobileTaken: async function (mobile, excludeUserId) {
-        const user = await this.findOne({ mobile, _id: { $ne: excludeUserId } });
+        const user = await this.findOne({
+          mobile,
+          _id: { $ne: excludeUserId },
+        });
         return !!user;
       },
     },

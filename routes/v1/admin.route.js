@@ -12,6 +12,8 @@ const router = express.Router();
 router.post("/register-user"
 ,auth("manageUsers")
 ,adminController.createUser)
+router.get("/get-unverified-users",auth("manageUsers"),adminController.getUnverifiedUsers)
+router.put("/verify-user/:id",auth("manageUsers"),adminController.verifyUser)
 
 
 

@@ -13,6 +13,10 @@ const loginUserWithEmailAndPassword = async (email, password) => {
     if (!user.isEmailVerified) {
       throw new ApiError(httpStatus.FORBIDDEN, "Email not verified");
     }
+    if(!user.isUserVerified){
+      throw new ApiError(httpStatus.FORBIDDEN, "User not verified, contact admin to get verified");
+    }
+
     return user;
   };
 
